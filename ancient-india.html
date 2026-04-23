@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ancient India: Legacy of Wisdom</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron: #FF9933;
+  --saffron-light: #FFB366;
+  --saffron-deep: #E07800;
+  --ivory: #FFF8E7;
+  --ivory-dark: #F5EDD4;
+  --brown-dark: #3E2723;
+  --brown-mid: #5D4037;
+  --brown-light: #8D6E63;
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-pale: rgba(212,175,55,0.15);
+  --text-dark: #2C1810;
+  --text-mid: #5D3A1A;
+  --glass: rgba(255,248,231,0.08);
+  --glass-border: rgba(212,175,55,0.25);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--brown-dark);
+  color: var(--ivory);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--brown-dark); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* ─── MANDALA PATTERN SVG background helper ─── */
+.mandala-bg {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 30%, rgba(212,175,55,0.04) 70%),
+    repeating-conic-gradient(rgba(212,175,55,0.03) 0deg 10deg, transparent 10deg 20deg);
+  pointer-events: none;
+}
+
+/* ─── NAVBAR ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 3rem;
+  transition: all 0.5s ease;
+}
+nav.scrolled {
+  background: rgba(30,15,5,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.7rem 3rem;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--saffron); }
+.nav-links {
+  display: flex; gap: 2rem; list-style: none;
+}
+.nav-links a {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,248,231,0.7);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--gold); }
+.music-btn {
+  background: none; border: 1px solid var(--glass-border);
+  border-radius: 50px; padding: 0.4rem 1rem;
+  color: var(--ivory); font-family: 'Jost', sans-serif;
+  font-size: 0.8rem; letter-spacing: 0.08em;
+  cursor: pointer; transition: all 0.3s;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.music-btn:hover { background: var(--gold-pale); border-color: var(--gold); }
+.music-btn .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--saffron); flex-shrink: 0;
+}
+.music-btn.playing .dot { animation: pulse-dot 1.2s infinite; }
+@keyframes pulse-dot {
+  0%,100% { transform: scale(1); opacity:1; }
+  50% { transform: scale(1.5); opacity: 0.6; }
+}
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 1.5px; background: var(--ivory); transition: all 0.3s; }
+
+/* ─── HERO ─── */
+#hero {
+  position: relative;
+  height: 100vh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  background: var(--brown-dark);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,153,51,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 80% 60%, rgba(212,175,55,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #1A0A00 0%, #3E2723 50%, #2C1810 100%);
+}
+.hero-arch {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 700px; pointer-events: none;
+  opacity: 0.18;
+}
+.hero-particles {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: float-particle linear infinite;
+  opacity: 0;
+}
+@keyframes float-particle {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center; padding: 2rem;
+  animation: hero-rise 1.4s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes hero-rise {
+  from { opacity:0; transform: translateY(50px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.hero-om {
+  font-size: 2.5rem; color: var(--gold);
+  margin-bottom: 1.5rem;
+  animation: hero-rise 1.4s 0.2s cubic-bezier(0.16,1,0.3,1) both;
+  text-shadow: 0 0 40px rgba(212,175,55,0.6);
+}
+.hero-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem; font-weight: 400;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--saffron); margin-bottom: 1.2rem;
+  animation: hero-rise 1.4s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 7vw, 6.5rem);
+  font-weight: 900; line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+  text-shadow: 0 4px 40px rgba(0,0,0,0.5);
+  animation: hero-rise 1.4s 0.4s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-title em {
+  font-style: italic; color: var(--gold);
+  display: block;
+}
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-style: italic; font-weight: 300;
+  color: rgba(255,248,231,0.65);
+  margin-top: 1.2rem;
+  animation: hero-rise 1.4s 0.55s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1rem; margin: 2rem auto;
+  animation: hero-rise 1.4s 0.65s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-divider::before, .hero-divider::after {
+  content: ''; flex: 1; max-width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.hero-divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
+.hero-divider-gem {
+  width: 8px; height: 8px; background: var(--saffron);
+  transform: rotate(45deg);
+}
+.explore-btn {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  margin-top: 1rem;
+  padding: 1rem 2.5rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--brown-dark);
+  background: linear-gradient(135deg, var(--gold), var(--saffron));
+  border: none; border-radius: 0;
+  cursor: pointer; text-decoration: none;
+  position: relative; overflow: hidden;
+  animation: hero-rise 1.4s 0.75s cubic-bezier(0.16,1,0.3,1) both;
+  transition: transform 0.3s, box-shadow 0.3s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.explore-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  opacity: 0; transition: opacity 0.3s;
+}
+.explore-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(212,175,55,0.4); }
+.explore-btn:hover::before { opacity: 1; }
+.explore-btn span { position: relative; }
+.explore-btn .arrow { font-size: 1rem; animation: bounce-arrow 2s infinite; }
+@keyframes bounce-arrow {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.hero-scroll-indicator {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  animation: hero-rise 1.4s 1s cubic-bezier(0.16,1,0.3,1) both;
+}
+.scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  animation: scroll-pulse 2s infinite;
+}
+@keyframes scroll-pulse {
+  0% { opacity: 0.3; transform: scaleY(0); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1); }
+  100% { opacity: 0; transform: scaleY(1); }
+}
+
+/* ─── SECTIONS GENERAL ─── */
+section { position: relative; overflow: hidden; }
+
+.section-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--saffron); margin-bottom: 0.8rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700; line-height: 1.15;
+  color: var(--ivory);
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.section-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; line-height: 1.85;
+  color: rgba(255,248,231,0.7);
+  font-weight: 300;
+}
+.gold-rule {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold));
+  margin: 1.5rem 0;
+}
+
+/* ─── REVEAL ANIMATION ─── */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+              transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── GOLDEN AGE ─── */
+#golden {
+  padding: 8rem 2rem;
+  background: linear-gradient(180deg, #2C1810 0%, #1A0A00 100%);
+}
+.golden-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 5rem; align-items: center;
+}
+.golden-cards {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.g-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  padding: 1.6rem;
+  position: relative; overflow: hidden;
+  cursor: default;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.g-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transition: transform 0.4s;
+}
+.g-card:hover {
+  background: rgba(255,248,231,0.12);
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+.g-card:hover::before { transform: scaleX(1); }
+.g-card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+.g-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.g-card-text {
+  font-size: 0.85rem; line-height: 1.7;
+  color: rgba(255,248,231,0.6);
+}
+.g-card-num {
+  position: absolute; top: 1rem; right: 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 900;
+  color: rgba(212,175,55,0.08);
+  line-height: 1;
+}
+.g-card.featured {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(255,153,51,0.05));
+  border-color: rgba(212,175,55,0.4);
+}
+
+/* ─── GREAT MINDS ─── */
+#minds {
+  padding: 8rem 2rem;
+  background: #1A0A00;
+}
+#minds .mandala-bg { opacity: 0.5; }
+.minds-inner { max-width: 1200px; margin: 0 auto; }
+.minds-header { text-align: center; margin-bottom: 4rem; }
+.minds-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.mind-card {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.mind-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(30,10,0,0.95) 100%);
+  transition: opacity 0.5s;
+}
+.mind-portrait {
+  width: 100%; aspect-ratio: 3/4;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6rem;
+  background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(255,153,51,0.05));
+  position: relative;
+}
+.mind-portrait-pattern {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(212,175,55,0.03) 0px, rgba(212,175,55,0.03) 1px,
+    transparent 1px, transparent 20px
+  );
+}
+.mind-portrait-glyph {
+  position: relative; z-index: 1;
+  font-size: 5rem; line-height: 1;
+  text-shadow: 0 0 60px rgba(212,175,55,0.4);
+}
+.mind-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  z-index: 2; padding: 2rem;
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.mind-era {
+  font-size: 0.7rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--saffron);
+  margin-bottom: 0.4rem;
+}
+.mind-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem; font-weight: 700;
+  color: var(--ivory); margin-bottom: 0.3rem;
+}
+.mind-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 1rem;
+  color: var(--gold);
+}
+.mind-bio {
+  margin-top: 1rem;
+  font-size: 0.87rem; line-height: 1.7;
+  color: rgba(255,248,231,0.75);
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), margin 0.3s;
+}
+.mind-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.1);
+}
+.mind-card:hover .mind-bio {
+  max-height: 200px;
+}
+.mind-card:hover::after {
+  background: linear-gradient(180deg, transparent 0%, rgba(15,5,0,0.97) 55%);
+}
+
+/* ─── CENTERS ─── */
+#centers {
+  padding: 8rem 2rem;
+  background: linear-gradient(180deg, #1A0A00 0%, #2C1810 100%);
+}
+.centers-inner { max-width: 1200px; margin: 0 auto; }
+.centers-header { margin-bottom: 4rem; }
+.timeline {
+  display: grid; gap: 0;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+}
+.tl-item {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  gap: 2rem; align-items: center;
+  padding: 2.5rem 0;
+}
+.tl-item:nth-child(even) .tl-content { grid-column: 3; grid-row: 1; order: 1; text-align: left; }
+.tl-item:nth-child(even) .tl-empty { grid-column: 1; }
+.tl-content {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  padding: 2rem;
+  transition: all 0.4s;
+}
+.tl-content:hover { border-color: var(--gold); background: rgba(255,248,231,0.1); }
+.tl-dot {
+  width: 14px; height: 14px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 3px solid var(--brown-dark);
+  box-shadow: 0 0 20px rgba(212,175,55,0.5);
+  flex-shrink: 0; z-index: 1;
+}
+.tl-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; font-weight: 900;
+  color: var(--saffron); opacity: 0.4;
+  margin-bottom: 0.3rem;
+}
+.tl-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.tl-desc {
+  font-size: 0.88rem; line-height: 1.7;
+  color: rgba(255,248,231,0.65);
+}
+.tl-badge {
+  display: inline-block; margin-top: 0.8rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  border: 1px solid rgba(212,175,55,0.3);
+  color: var(--gold);
+}
+
+/* ─── PHILOSOPHY ─── */
+#philosophy {
+  padding: 8rem 2rem;
+  background: #120800;
+  text-align: center;
+}
+.philosophy-inner { max-width: 900px; margin: 0 auto; }
+.quotes-carousel {
+  position: relative; min-height: 280px;
+  display: flex; align-items: center; justify-content: center;
+}
+.quote-item {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 1s ease;
+  padding: 2rem;
+}
+.quote-item.active { opacity: 1; }
+.quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem; line-height: 0.5;
+  color: var(--gold); opacity: 0.3;
+  margin-bottom: 1rem;
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-style: italic; font-weight: 300;
+  line-height: 1.6; color: var(--ivory);
+  max-width: 700px;
+}
+.quote-source {
+  margin-top: 1.5rem;
+  font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--saffron);
+}
+.quote-dots {
+  display: flex; gap: 0.6rem; justify-content: center;
+  margin-top: 3rem;
+}
+.quote-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(212,175,55,0.3); cursor: pointer;
+  transition: all 0.3s;
+}
+.quote-dot.active { background: var(--gold); transform: scale(1.4); }
+.philosophy-pillars {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1.5rem; margin-top: 5rem;
+}
+.pillar {
+  padding: 2rem 1.2rem;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  text-align: center;
+  transition: all 0.4s;
+}
+.pillar:hover { border-color: var(--gold); transform: translateY(-4px); }
+.pillar-icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+.pillar-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem; color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.pillar-sub {
+  font-size: 0.78rem; letter-spacing: 0.08em;
+  color: rgba(255,248,231,0.5);
+  font-style: italic;
+}
+
+/* ─── LEGACY ─── */
+#legacy {
+  padding: 8rem 2rem;
+  background: linear-gradient(180deg, #120800 0%, #2C1810 100%);
+}
+.legacy-inner { max-width: 1200px; margin: 0 auto; }
+.legacy-header { text-align: center; margin-bottom: 4rem; }
+.legacy-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 2rem;
+}
+.legacy-item {
+  position: relative; padding: 2.5rem 2rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  transition: all 0.4s;
+  overflow: hidden;
+}
+.legacy-item::before {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 3px; height: 0;
+  background: linear-gradient(180deg, var(--saffron), var(--gold));
+  transition: height 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.legacy-item:hover::before { height: 100%; }
+.legacy-item:hover { border-color: rgba(212,175,55,0.5); transform: translateX(4px); }
+.legacy-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem; font-weight: 900;
+  color: rgba(212,175,55,0.12);
+  line-height: 1; margin-bottom: 0.5rem;
+}
+.legacy-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; color: var(--gold);
+  margin-bottom: 0.8rem;
+}
+.legacy-desc {
+  font-size: 0.87rem; line-height: 1.75;
+  color: rgba(255,248,231,0.65);
+}
+.legacy-tag {
+  display: inline-block; margin-top: 1rem;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.68rem; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255,153,51,0.1);
+  color: var(--saffron);
+  border: 1px solid rgba(255,153,51,0.3);
+}
+
+/* ─── REFLECTION ─── */
+#reflection {
+  padding: 10rem 2rem;
+  background: #0D0500;
+  text-align: center;
+  position: relative;
+}
+.reflection-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.reflection-inner { max-width: 800px; margin: 0 auto; position: relative; }
+.reflection-lotus { font-size: 4rem; margin-bottom: 2rem; opacity: 0.7; }
+.reflection-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-style: italic; font-weight: 400;
+  line-height: 1.6; color: var(--ivory);
+  margin-bottom: 2rem;
+}
+.reflection-quote em { color: var(--gold); font-style: normal; }
+.reflection-author {
+  font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,248,231,0.4);
+  margin-bottom: 3rem;
+}
+.reflection-end-line {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1rem; color: var(--gold); opacity: 0.4;
+  font-size: 1.2rem;
+}
+.reflection-end-line::before, .reflection-end-line::after {
+  content: ''; flex: 1; max-width: 120px; height: 1px;
+  background: currentColor;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 2rem; text-align: center;
+  background: #080300;
+  font-size: 0.78rem; letter-spacing: 0.1em;
+  color: rgba(255,248,231,0.2);
+}
+footer span { color: var(--saffron); opacity: 0.6; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  nav.scrolled { padding: 0.7rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,4,0,0.97);
+    align-items: center; justify-content: center;
+    gap: 2.5rem; z-index: 999;
+    font-size: 1.2rem;
+  }
+  .hamburger { display: flex; z-index: 1001; }
+  .golden-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .minds-grid { grid-template-columns: 1fr; }
+  .timeline::before { left: 20px; }
+  .tl-item { grid-template-columns: auto 1fr; }
+  .tl-item:nth-child(even) .tl-content { grid-column: 2; text-align: left; }
+  .tl-item:nth-child(even) .tl-empty { display: none; }
+  .philosophy-pillars { grid-template-columns: 1fr 1fr; }
+  .legacy-grid { grid-template-columns: 1fr; }
+  .music-btn { display: none; }
+}
+@media (max-width: 600px) {
+  .golden-cards { grid-template-columns: 1fr; }
+  .g-card.featured { grid-column: 1; }
+  .philosophy-pillars { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">॥ Ancient <span>India</span> ॥</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#golden">Knowledge</a></li>
+    <li><a href="#minds">Great Minds</a></li>
+    <li><a href="#centers">Centers</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#legacy">Legacy</a></li>
+  </ul>
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+    <span class="dot"></span> Ambience
+  </button>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles" id="particles"></div>
+
+  <!-- Temple arch SVG -->
+  <svg class="hero-arch" viewBox="0 0 900 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 700 L100 300 Q100 100 450 80 Q800 100 800 300 L800 700Z" stroke="#D4AF37" stroke-width="1.5" fill="none"/>
+    <path d="M140 700 L140 320 Q140 140 450 120 Q760 140 760 320 L760 700Z" stroke="#D4AF37" stroke-width="0.8" fill="none" stroke-dasharray="4 8"/>
+    <path d="M200 700 L200 350 Q200 200 450 180 Q700 200 700 350 L700 700Z" stroke="#FF9933" stroke-width="0.5" fill="none" opacity="0.5"/>
+    <!-- Shikhara spires -->
+    <line x1="450" y1="80" x2="450" y2="20" stroke="#D4AF37" stroke-width="1.5"/>
+    <polygon points="450,10 440,30 460,30" fill="#D4AF37" opacity="0.8"/>
+    <line x1="250" y1="180" x2="250" y2="130" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="250,122 243,138 257,138" fill="#D4AF37" opacity="0.5"/>
+    <line x1="650" y1="180" x2="650" y2="130" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="650,122 643,138 657,138" fill="#D4AF37" opacity="0.5"/>
+    <!-- Steps -->
+    <line x1="50" y1="700" x2="850" y2="700" stroke="#D4AF37" stroke-width="1" opacity="0.6"/>
+    <line x1="70" y1="690" x2="830" y2="690" stroke="#D4AF37" stroke-width="0.7" opacity="0.3"/>
+    <!-- Decorative bands -->
+    <line x1="100" y1="420" x2="800" y2="420" stroke="#D4AF37" stroke-width="0.5" opacity="0.3" stroke-dasharray="3 6"/>
+    <line x1="110" y1="500" x2="790" y2="500" stroke="#D4AF37" stroke-width="0.5" opacity="0.2" stroke-dasharray="3 6"/>
+    <!-- Kalasha -->
+    <ellipse cx="450" cy="42" rx="14" ry="10" stroke="#D4AF37" stroke-width="1" fill="none"/>
+    <ellipse cx="450" cy="55" rx="18" ry="8" stroke="#D4AF37" stroke-width="0.8" fill="none"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-om">ॐ</div>
+    <p class="hero-eyebrow">A Journey Through Time</p>
+    <h1 class="hero-title">
+      Ancient India<br><em>Legacy of Wisdom</em>
+    </h1>
+    <p class="hero-subtitle">"Where knowledge shaped civilizations"</p>
+    <div class="hero-divider"><div class="hero-divider-gem"></div></div>
+    <a href="#golden" class="explore-btn">
+      <span>Explore</span>
+      <span class="arrow">↓</span>
+    </a>
+  </div>
+  <div class="hero-scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- GOLDEN AGE -->
+<section id="golden">
+  <div class="mandala-bg"></div>
+  <div class="golden-inner">
+    <div>
+      <p class="section-eyebrow reveal">The Golden Age</p>
+      <h2 class="section-title reveal reveal-delay-1">A Civilization of<br><em>Extraordinary Knowledge</em></h2>
+      <div class="gold-rule reveal reveal-delay-2"></div>
+      <p class="section-body reveal reveal-delay-2">
+        Long before modern science, ancient India illuminated the world with discoveries that still underpin civilization. From the abstract concept of zero to precise astronomical calculations, from surgical instruments to systematic grammar — the legacy endures in every corner of human knowledge.
+      </p>
+      <p class="section-body reveal reveal-delay-3" style="margin-top:1rem">
+        Between the 4th and 7th centuries CE, the Gupta Empire catalyzed an era often called the Golden Age — a flourishing of art, literature, philosophy, and science unparalleled in its time.
+      </p>
+    </div>
+    <div class="golden-cards">
+      <div class="g-card reveal reveal-delay-1">
+        <div class="g-card-num">0</div>
+        <div class="g-card-icon">∞</div>
+        <div class="g-card-title">Zero & Decimal</div>
+        <p class="g-card-text">Brahmagupta formalized zero as a number with defined rules for arithmetic — a concept that became the foundation of all modern computing and mathematics.</p>
+      </div>
+      <div class="g-card reveal reveal-delay-2">
+        <div class="g-card-num">π</div>
+        <div class="g-card-icon">🌌</div>
+        <div class="g-card-title">Astronomy</div>
+        <p class="g-card-text">Ancient Indians calculated the Earth's circumference, predicted eclipses, and theorized heliocentrism centuries before Copernicus.</p>
+      </div>
+      <div class="g-card reveal reveal-delay-3">
+        <div class="g-card-num">☤</div>
+        <div class="g-card-icon">🌿</div>
+        <div class="g-card-title">Ayurveda</div>
+        <p class="g-card-text">A holistic system of medicine spanning herbal remedies, diet, mental health, and surgery — still practiced across 100+ countries today.</p>
+      </div>
+      <div class="g-card reveal reveal-delay-4">
+        <div class="g-card-num">∑</div>
+        <div class="g-card-icon">📐</div>
+        <div class="g-card-title">Trigonometry</div>
+        <p class="g-card-text">The sine function, algebra, and the binary number system all trace their origins to the mathematical genius of the Indian subcontinent.</p>
+      </div>
+      <div class="g-card featured reveal reveal-delay-2">
+        <div class="g-card-icon">⚛️</div>
+        <div class="g-card-title">Atomic Theory — Kanada, 600 BCE</div>
+        <p class="g-card-text">Maharishi Kanada postulated that all matter is composed of indestructible units called paramanu (atoms) that combine in specific ratios to form compounds — a theory that predates Democritus and foreshadows modern atomic physics by two millennia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GREAT MINDS -->
+<section id="minds">
+  <div class="mandala-bg"></div>
+  <div class="minds-inner">
+    <div class="minds-header">
+      <p class="section-eyebrow reveal">Luminaries</p>
+      <h2 class="section-title reveal reveal-delay-1">Great Minds of<br><em>Ancient India</em></h2>
+      <div class="gold-rule reveal reveal-delay-2" style="margin: 1.5rem auto;"></div>
+      <p class="section-body reveal reveal-delay-2" style="max-width:600px; margin: 0 auto;">
+        These visionaries did not merely observe the world — they sought to understand, classify, and transform it for the betterment of humanity.
+      </p>
+    </div>
+    <div class="minds-grid">
+      <div class="mind-card reveal">
+        <div class="mind-portrait">
+          <div class="mind-portrait-pattern"></div>
+          <div class="mind-portrait-glyph">🦁</div>
+        </div>
+        <div class="mind-info">
+          <div class="mind-era">350 BCE</div>
+          <div class="mind-name">Chanakya</div>
+          <div class="mind-role">Statecraft & Economics</div>
+          <div class="mind-bio">
+            Also known as Kautilya, Chanakya authored the Arthashastra — a treatise on statecraft, economic policy, and military strategy. As the mastermind behind the Maurya Empire's rise, he pioneered concepts of diplomacy, intelligence, and governance that resonate in modern political science. His maxims on power and ethics remain startlingly relevant.
+          </div>
+        </div>
+      </div>
+      <div class="mind-card reveal reveal-delay-1">
+        <div class="mind-portrait">
+          <div class="mind-portrait-pattern"></div>
+          <div class="mind-portrait-glyph">✨</div>
+        </div>
+        <div class="mind-info">
+          <div class="mind-era">476 CE</div>
+          <div class="mind-name">Aryabhata</div>
+          <div class="mind-role">Mathematics & Astronomy</div>
+          <div class="mind-bio">
+            At just 23, Aryabhata wrote the Aryabhatiya, introducing the concept of zero, place value notation, and the correct value of π. He proposed that Earth rotates on its own axis and orbits the Sun — revolutionary ideas a thousand years before Galileo. His work on algebra and trigonometry shaped both Islamic and European mathematics.
+          </div>
+        </div>
+      </div>
+      <div class="mind-card reveal reveal-delay-2">
+        <div class="mind-portrait">
+          <div class="mind-portrait-pattern"></div>
+          <div class="mind-portrait-glyph">🌿</div>
+        </div>
+        <div class="mind-info">
+          <div class="mind-era">600 BCE</div>
+          <div class="mind-name">Sushruta</div>
+          <div class="mind-role">Medicine & Surgery</div>
+          <div class="mind-bio">
+            Revered as the Father of Surgery, Sushruta described over 300 surgical procedures and 120 surgical instruments in his Sushruta Samhita. He pioneered rhinoplasty, cataract surgery, and techniques for setting bones — achievements not matched in the West for another 2,000 years. His ethical commitment to the patient echoes in modern medical oaths.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CENTERS -->
+<section id="centers">
+  <div class="centers-inner">
+    <div class="centers-header">
+      <p class="section-eyebrow reveal">Ancient Universities</p>
+      <h2 class="section-title reveal reveal-delay-1">Centers of<br><em>Learning & Light</em></h2>
+      <div class="gold-rule reveal reveal-delay-2"></div>
+      <p class="section-body reveal reveal-delay-2" style="max-width:600px">
+        Centuries before Oxford or Bologna, India's great universities welcomed scholars from across the known world, forging the template for structured higher education.
+      </p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-content" style="text-align:right">
+          <div class="tl-year">700 BCE</div>
+          <div class="tl-name">Takshashila (Taxila)</div>
+          <p class="tl-desc">The world's earliest recorded university, teaching over 60 subjects including medicine, law, military science, and the Vedas. Students as young as sixteen traveled from Babylon, Greece, and China to study here. Chanakya himself was both student and teacher within its halls.</p>
+          <span class="tl-badge">Northwestern India</span>
+        </div>
+        <div class="tl-dot"></div>
+        <div></div>
+      </div>
+      <div class="tl-item reveal reveal-delay-1">
+        <div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">427 CE</div>
+          <div class="tl-name">Nalanda Mahavihara</div>
+          <p class="tl-desc">The crown jewel of ancient education, Nalanda housed 10,000 students and 2,000 faculty at its peak. Its nine-storey library — Dharmaganja — contained millions of manuscripts. Scholars like Xuanzang traveled from Tang Dynasty China and documented their awe. Nalanda taught logic, medicine, Sanskrit, philosophy, and metaphysics.</p>
+          <span class="tl-badge">Bihar, India</span>
+        </div>
+      </div>
+      <div class="tl-item reveal reveal-delay-2">
+        <div class="tl-content" style="text-align:right">
+          <div class="tl-year">7th Century CE</div>
+          <div class="tl-name">Vikramashila</div>
+          <p class="tl-desc">Founded by the Pala king Dharmapala, Vikramashila became the foremost center for Tantric Buddhism and advanced scholarship. It maintained rigorous entrance examinations — one of the earliest examples of academic meritocracy — and forged deep intellectual exchange with Tibet and Southeast Asia.</p>
+          <span class="tl-badge">Bihar, India</span>
+        </div>
+        <div class="tl-dot"></div>
+        <div></div>
+      </div>
+      <div class="tl-item reveal reveal-delay-3">
+        <div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">5th Century CE</div>
+          <div class="tl-name">Vallabhi University</div>
+          <p class="tl-desc">A secular counterpart to Nalanda, Vallabhi excelled in law, economics, and statecraft. Its graduates shaped the administration of powerful kingdoms across the subcontinent, blending practical governance with philosophical rigor. It thrived for over 600 years.</p>
+          <span class="tl-badge">Gujarat, India</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="philosophy-inner">
+    <p class="section-eyebrow reveal">Ancient Wisdom</p>
+    <h2 class="section-title reveal reveal-delay-1">Philosophy &<br><em>Sacred Teachings</em></h2>
+    <div class="gold-rule reveal reveal-delay-2" style="margin: 1.5rem auto;"></div>
+
+    <div class="quotes-carousel reveal reveal-delay-2" id="quoteCarousel">
+      <div class="quote-item active">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">The soul is neither born, and nor does it die at any time. It has not come into being, does not come into being, and will not come into being. It is unborn, eternal, ever-existing, and primeval.</p>
+        <div class="quote-source">Bhagavad Gita · Chapter 2, Verse 20</div>
+      </div>
+      <div class="quote-item">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Knowledge is the eye of desire and can become the pilot of the soul. A man without knowledge is no better than a stone.</p>
+        <div class="quote-source">Chanakya · Arthashastra</div>
+      </div>
+      <div class="quote-item">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Ahimsa is the highest dharma. Ahimsa is the highest self-restraint. Ahimsa is the greatest gift. Ahimsa is the best suffering. Ahimsa is the highest sacrifice.</p>
+        <div class="quote-source">Mahabharata · Shanti Parva</div>
+      </div>
+      <div class="quote-item">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Let noble thoughts come to us from every side. May all beings be happy. May all beings be healthy. May all beings experience prosperity. May none suffer.</p>
+        <div class="quote-source">Rigveda · Ancient Invocation</div>
+      </div>
+      <div class="quote-item">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">In the sky, there is no distinction of east and west; people create distinctions out of their own minds and then believe them to be true.</p>
+        <div class="quote-source">The Buddha · Pali Canon</div>
+      </div>
+    </div>
+    <div class="quote-dots" id="quoteDots">
+      <div class="quote-dot active" onclick="goToQuote(0)"></div>
+      <div class="quote-dot" onclick="goToQuote(1)"></div>
+      <div class="quote-dot" onclick="goToQuote(2)"></div>
+      <div class="quote-dot" onclick="goToQuote(3)"></div>
+      <div class="quote-dot" onclick="goToQuote(4)"></div>
+    </div>
+
+    <div class="philosophy-pillars" style="margin-top:5rem">
+      <div class="pillar reveal">
+        <div class="pillar-icon">🧘</div>
+        <div class="pillar-name">Dharma</div>
+        <div class="pillar-sub">Righteous living</div>
+      </div>
+      <div class="pillar reveal reveal-delay-1">
+        <div class="pillar-icon">🔥</div>
+        <div class="pillar-name">Karma</div>
+        <div class="pillar-sub">Cosmic justice</div>
+      </div>
+      <div class="pillar reveal reveal-delay-2">
+        <div class="pillar-icon">🌊</div>
+        <div class="pillar-name">Moksha</div>
+        <div class="pillar-sub">Liberation of self</div>
+      </div>
+      <div class="pillar reveal reveal-delay-3">
+        <div class="pillar-icon">☀️</div>
+        <div class="pillar-name">Ahimsa</div>
+        <div class="pillar-sub">Non-violence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGACY -->
+<section id="legacy">
+  <div class="legacy-inner">
+    <div class="legacy-header">
+      <p class="section-eyebrow reveal">Timeless Impact</p>
+      <h2 class="section-title reveal reveal-delay-1">A Legacy That<br><em>Lives On</em></h2>
+      <div class="gold-rule reveal reveal-delay-2" style="margin:1.5rem auto"></div>
+      <p class="section-body reveal reveal-delay-2" style="max-width:600px; margin:0 auto">
+        Ancient India's contributions are not relics — they are the living infrastructure of our modern world.
+      </p>
+    </div>
+    <div class="legacy-grid">
+      <div class="legacy-item reveal">
+        <div class="legacy-num">01</div>
+        <div class="legacy-title">The Number System</div>
+        <p class="legacy-desc">Every calculation ever performed on a computer, every financial transaction, every GPS coordinate — all depend on the Indian numeral system and the concept of zero, which the world adopted via Arab scholars in the 9th century.</p>
+        <span class="legacy-tag">Mathematics</span>
+      </div>
+      <div class="legacy-item reveal reveal-delay-1">
+        <div class="legacy-num">02</div>
+        <div class="legacy-title">Yoga & Mindfulness</div>
+        <p class="legacy-desc">From corporate wellness programs to Olympic training regimes, the ancient science of yoga — first systematized in the Yoga Sutras of Patanjali — is now practiced by over 300 million people worldwide as both physical and mental medicine.</p>
+        <span class="legacy-tag">Health & Wellness</span>
+      </div>
+      <div class="legacy-item reveal reveal-delay-2">
+        <div class="legacy-num">03</div>
+        <div class="legacy-title">Surgical Techniques</div>
+        <p class="legacy-desc">Sushruta's rhinoplasty techniques — using a flap of skin from the forehead — were rediscovered by British surgeons in the 18th century and are still used in reconstructive surgery today. The scalpel's ancestor is Indian.</p>
+        <span class="legacy-tag">Medicine</span>
+      </div>
+      <div class="legacy-item reveal reveal-delay-1">
+        <div class="legacy-num">04</div>
+        <div class="legacy-title">Linguistics & Grammar</div>
+        <p class="legacy-desc">Panini's Ashtadhyayi (4th century BCE), with its 3,959 sutras, created a formal grammar for Sanskrit so precise and complete that modern computational linguists cite it as a precursor to formal language theory and computer science compilers.</p>
+        <span class="legacy-tag">Language</span>
+      </div>
+      <div class="legacy-item reveal reveal-delay-2">
+        <div class="legacy-num">05</div>
+        <div class="legacy-title">Chess & Strategy</div>
+        <p class="legacy-desc">Chaturanga, the ancient Indian strategy game, evolved into chess — now played by over 600 million people. More than a game, it was a simulation of military strategy and statecraft, reflecting India's sophisticated understanding of geopolitical dynamics.</p>
+        <span class="legacy-tag">Culture</span>
+      </div>
+      <div class="legacy-item reveal reveal-delay-3">
+        <div class="legacy-num">06</div>
+        <div class="legacy-title">Philosophy of Non-Violence</div>
+        <p class="legacy-desc">Ahimsa — non-violence — traveled from the Jain and Hindu texts through Mahatma Gandhi, and inspired Martin Luther King Jr. and Nelson Mandela. An ancient Indian concept became the engine of 20th-century liberation movements worldwide.</p>
+        <span class="legacy-tag">Philosophy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section id="reflection">
+  <div class="reflection-glow"></div>
+  <div class="reflection-inner">
+    <div class="reflection-lotus reveal">🪷</div>
+    <blockquote class="reflection-quote reveal reveal-delay-1">
+      "The legacy of a civilization is not just in its past,<br>
+      but in the <em>people who carry its values forward</em>."
+    </blockquote>
+    <p class="reflection-author reveal reveal-delay-2">— A reflection on Ancient India</p>
+    <div class="reflection-end-line reveal reveal-delay-3">✦</div>
+    <p class="section-body reveal reveal-delay-3" style="margin-top:3rem; max-width:600px; margin-left:auto; margin-right:auto; font-size:1rem; text-align:center">
+      Every time you use a number, practice yoga, receive surgery, or play chess — you carry a thread of this ancient civilization within you. The wisdom of India does not sleep in museums. It breathes in the world.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>Crafted with reverence · <span>Ancient India: Legacy of Wisdom</span> · ॐ नमो नारायणाय</p>
+</footer>
+
+<!-- AUDIO (silent oscillator for ambient toggle) -->
+<audio id="bgMusic" loop>
+  <source src="" type="audio/ogg">
+</audio>
+
+<script>
+// ─── PARTICLES ───
+const container = document.getElementById('particles');
+for (let i = 0; i < 35; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.cssText = `
+    left: ${Math.random()*100}%;
+    width: ${Math.random()*3+1}px;
+    height: ${Math.random()*3+1}px;
+    animation-duration: ${Math.random()*12+8}s;
+    animation-delay: ${Math.random()*10}s;
+  `;
+  container.appendChild(p);
+}
+
+// ─── NAVBAR SCROLL ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+  updateActiveNav();
+});
+
+function updateActiveNav() {
+  const sections = ['golden','minds','centers','philosophy','legacy'];
+  const links = document.querySelectorAll('.nav-links a');
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 200) current = id;
+  });
+  links.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+}
+
+// ─── HAMBURGER ───
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── QUOTES CAROUSEL ───
+let currentQuote = 0;
+const quotes = document.querySelectorAll('.quote-item');
+const dots = document.querySelectorAll('.quote-dot');
+
+function goToQuote(n) {
+  quotes[currentQuote].classList.remove('active');
+  dots[currentQuote].classList.remove('active');
+  currentQuote = n;
+  quotes[currentQuote].classList.add('active');
+  dots[currentQuote].classList.add('active');
+}
+
+setInterval(() => {
+  goToQuote((currentQuote + 1) % quotes.length);
+}, 5000);
+
+// ─── AMBIENT MUSIC (Web Audio API) ───
+let audioCtx = null;
+let musicNodes = [];
+let musicPlaying = false;
+
+function createAmbience() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const master = audioCtx.createGain();
+  master.gain.setValueAtTime(0.001, audioCtx.currentTime);
+  master.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 3);
+  master.connect(audioCtx.destination);
+
+  // Drone frequencies (Sa, Pa, Sa octave — Indian classical drone)
+  const freqs = [130.81, 196.00, 261.63, 392.00];
+  freqs.forEach((freq, i) => {
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    const filter = audioCtx.createBiquadFilter();
+
+    osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+    osc.frequency.value = freq;
+
+    // Slow tremolo
+    const lfo = audioCtx.createOscillator();
+    const lfoGain = audioCtx.createGain();
+    lfo.frequency.value = 0.15 + i * 0.05;
+    lfoGain.gain.value = 2;
+    lfo.connect(lfoGain);
+    lfo.connect(osc.frequency);
+    lfo.start();
+
+    filter.type = 'lowpass';
+    filter.frequency.value = 800;
+
+    gainNode.gain.value = 0.3 / freqs.length;
+
+    osc.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(master);
+    osc.start();
+
+    musicNodes.push(osc, lfo, gainNode, filter);
+  });
+  musicNodes.push(master);
+  return master;
+}
+
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+  if (!musicPlaying) {
+    createAmbience();
+    musicPlaying = true;
+    btn.classList.add('playing');
+    btn.innerHTML = '<span class="dot"></span> Playing';
+  } else {
+    musicNodes.forEach(n => {
+      try {
+        if (n instanceof OscillatorNode) n.stop();
+        if (n instanceof GainNode) {
+          n.gain.setValueAtTime(n.gain.value, audioCtx.currentTime);
+          n.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
+        }
+      } catch(e) {}
+    });
+    setTimeout(() => {
+      try { audioCtx.close(); } catch(e) {}
+      musicNodes = [];
+      audioCtx = null;
+    }, 2000);
+    musicPlaying = false;
+    btn.classList.remove('playing');
+    btn.innerHTML = '<span class="dot"></span> Ambience';
+  }
+}
+</script>
+</body>
+</html>
